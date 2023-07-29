@@ -26,13 +26,21 @@ const initialState: DataState = {
     error: undefined,
 }
 
-export const fetchData = createAsyncThunk('data/fetchData', async () => {
-    const res = await fetch('/api/getData', {
-        method: 'POST',
-    })
-    const data: DataResponse = await res.json()
-    return data
-})
+export const fetchData = createAsyncThunk(
+    'data/fetchData',
+    async (filters: {
+        activeMonthFilters: string[]
+        activeYearFilters: string[]
+        activeProductFilters: string[]
+    }) => {
+        const res = await fetch('/api/getData', {
+            method: 'POST',
+            body: JSON.stringify(filters),
+        })
+        const data: DataResponse = await res.json()
+        return data
+    }
+)
 
 export const dataSlice = createSlice({
     name: 'data',

@@ -1,11 +1,13 @@
 import { prisma } from '../prisma/prismaClient'
+import { FiltersParams } from '../types/filtersFunctionParam'
+import prismaQueryFiltering from './prismaQueryFiltering'
+import { PrismaClient, Prisma } from '@prisma/client'
 
-export const getTopClients = async () => {
+export const getTopClients = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
     return await prisma.order.groupBy({
         by: ['Client_s_name'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _sum: {
             Total: true,
         },
@@ -18,12 +20,11 @@ export const getTopClients = async () => {
     })
 }
 
-export const getTopCountries = async () => {
+export const getTopCountries = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
     return await prisma.order.groupBy({
         by: ['Country'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _sum: {
             Total: true,
         },
@@ -36,12 +37,14 @@ export const getTopCountries = async () => {
     })
 }
 
-export const getProductsQuantity = async () => {
+export const getProductsQuantity = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters, {
+        months: true,
+        years: true,
+    })
     return await prisma.order.groupBy({
         by: ['Product'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _sum: {
             Quantity: true,
         },
@@ -53,22 +56,28 @@ export const getProductsQuantity = async () => {
     })
 }
 
-export const getYearlyRevenues = async () => {
+// TODO: write new query
+export const getYearlyRevenues = async (
+    years: string[],
+    products: string[]
+) => {
+    const numericYears = years.map((year) => parseInt(year, 10))
+
     return await prisma.$queryRaw`
-    SELECT EXTRACT(MONTH FROM "Order date") as month, SUM("Total") as revenue
-    FROM "Order"
-    WHERE EXTRACT(YEAR FROM "Order date") = 2016
-    GROUP BY EXTRACT(MONTH FROM "Order date")
-    ORDER BY month ASC;
-  `
+        SELECT EXTRACT(YEAR FROM "Order date") as year, EXTRACT(MONTH FROM "Order date") as month, SUM("Total") as revenue
+        FROM "Order"
+        WHERE EXTRACT(YEAR FROM "Order date") = ANY(${numericYears})
+        AND "Product" = ANY(${products})
+        GROUP BY EXTRACT(YEAR FROM "Order date"), EXTRACT(MONTH FROM "Order date")
+        ORDER BY year ASC, month ASC;
+    `
 }
 
-export const getCountriesRevenues = async () => {
+export const getCountriesRevenues = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
     return await prisma.order.groupBy({
         by: ['Country'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _sum: {
             Total: true,
         },
@@ -80,25 +89,23 @@ export const getCountriesRevenues = async () => {
     })
 }
 
-export const getTotalRevenue = async () => {
+export const getTotalRevenue = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
     return await prisma.order.aggregate({
         _sum: {
             Total: true,
         },
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
     })
 }
 
-export const getTotalQuantity = async () => {
+export const getTotalQuantity = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
     return await prisma.order.aggregate({
         _sum: {
             Quantity: true,
         },
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
     })
 }
 
@@ -120,23 +127,22 @@ export const getAllYears = async () => {
     })
 }
 
-export const getOrderSizes = async () =>
-    await prisma.order.groupBy({
+export const getOrderSizes = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
+    return await prisma.order.groupBy({
         by: ['Order_Size'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _count: {
             Order_Size: true,
         },
     })
+}
 
-export const getOrderStatuses = async () =>
-    await prisma.order.groupBy({
+export const getOrderStatuses = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters)
+    return await prisma.order.groupBy({
         by: ['Order_status'],
-        where: {
-            Order_year: 2015,
-        },
+        where: whereClause,
         _count: {
             Order_status: true,
         },
@@ -146,9 +152,10 @@ export const getOrderStatuses = async () =>
             },
         },
     })
+}
 
-export const getRevenuesComparison = async () =>
-    await prisma.order.groupBy({
+export const getRevenuesComparison = async () => {
+    return await prisma.order.groupBy({
         by: ['Order_year'],
         _sum: {
             Total: true,
@@ -157,3 +164,4 @@ export const getRevenuesComparison = async () =>
             Order_year: 'asc',
         },
     })
+}

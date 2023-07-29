@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from '../../Providers/Providers'
 import Header from './components/templates/Header'
+import Filters from './components/templates/Filters'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <Providers>
                     <Header />
+                    <Filters />
                     <div className="h-full xl:ml-[100px] mt-[80px] xl:mt-0 xl:w-[calc(100vw-100px)] p-3 md:p-6">
                         {children}
                     </div>

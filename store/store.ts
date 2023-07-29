@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import dataSlice from './dataSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import UISlice from './UISlice'
+import filtersSlice from './filterSlice'
 
 export const store = configureStore({
     reducer: {
         data: dataSlice,
         UI: UISlice,
+        filters: filtersSlice,
     },
 })
 
