@@ -28,7 +28,7 @@ export interface TopClient {
 
 export interface YearlyRevenue {
     month: string
-    revenue: string
+    revenue: number
 }
 
 export interface OrderSize {

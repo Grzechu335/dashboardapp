@@ -37,10 +37,7 @@ export async function POST(req: Request) {
                 quantity: Number(product._sum.Quantity),
             }))
         )
-        const yearlyRevenues = await getYearlyRevenues(
-            filters.activeYearFilters,
-            filters.activeProductFilters
-        )
+        const yearlyRevenues = await getYearlyRevenues(filters)
         const countriesRevenues = await getCountriesRevenues(filters).then(
             (res) =>
                 res.map((country) => ({

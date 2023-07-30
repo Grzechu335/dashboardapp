@@ -18,7 +18,7 @@ const TopCountriesChartComponent = () => {
                     className="mx-auto"
                 />
             </div>
-            <div className="space-y-10">
+            <div className="space-y-4">
                 {topCountries?.map((country) => (
                     <TopChartItem
                         key={country.country}

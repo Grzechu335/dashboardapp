@@ -26,11 +26,8 @@ const OrderStatusesChartComponent = (props: Props) => {
                     else if (status.status === 'Sent') color = 'sky'
                     else color = 'lime'
                     return (
-                        <>
-                            <div
-                                key={status.status}
-                                className="min-w-[60px] flex flex-col"
-                            >
+                        <React.Fragment key={status.status}>
+                            <div className="w-[60px] md:w-[100px] flex flex-col">
                                 <DonutChart
                                     className="h-[100px]"
                                     data={[status]}
@@ -43,9 +40,9 @@ const OrderStatusesChartComponent = (props: Props) => {
                                 </Text>
                             </div>
                             {idx !== orderStatuses.length - 1 && (
-                                <span className="bg-zinc-700 w-[1px] h-[60%] my-auto" />
+                                <span className="bg-zinc-700 w-[1px] h-[70%] my-auto" />
                             )}
-                        </>
+                        </React.Fragment>
                     )
                 })}
             </div>

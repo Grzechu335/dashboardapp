@@ -1,6 +1,5 @@
-const currencyFormatter = (num: number | undefined) => {
-    if (typeof num === 'undefined') return
-    return num.toLocaleString('en-US', {
+const currencyFormatter = (num?: number) => {
+    return num?.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
     })

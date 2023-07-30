@@ -1,5 +1,6 @@
 import { prisma } from '../prisma/prismaClient'
 import { FiltersParams } from '../types/filtersFunctionParam'
+import monthsInOrder from './monthsInOrder'
 import prismaQueryFiltering from './prismaQueryFiltering'
 import { PrismaClient, Prisma } from '@prisma/client'
 
@@ -56,21 +57,40 @@ export const getProductsQuantity = async (filters: FiltersParams) => {
     })
 }
 
-// TODO: write new query
-export const getYearlyRevenues = async (
-    years: string[],
-    products: string[]
-) => {
-    const numericYears = years.map((year) => parseInt(year, 10))
+export const getYearlyRevenues = async (filters: FiltersParams) => {
+    const whereClause = prismaQueryFiltering(filters, {
+        products: true,
+        years: true,
+    })
+    const yearlyRevenues = await prisma.order.groupBy({
+        by: ['Order_month'],
+        _sum: {
+            Total: true,
+        },
+        where: whereClause,
+        orderBy: {
+            Order_month: 'asc',
+        },
+    })
+    const transformData = (data: any) => {
+        const dataByMonth: any = {}
+        data.forEach((item: any) => {
+            dataByMonth[item.Order_month] = item._sum.Total
+        })
 
-    return await prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM "Order date") as year, EXTRACT(MONTH FROM "Order date") as month, SUM("Total") as revenue
-        FROM "Order"
-        WHERE EXTRACT(YEAR FROM "Order date") = ANY(${numericYears})
-        AND "Product" = ANY(${products})
-        GROUP BY EXTRACT(YEAR FROM "Order date"), EXTRACT(MONTH FROM "Order date")
-        ORDER BY year ASC, month ASC;
-    `
+        const transformedData = monthsInOrder.map((month) => ({
+            _sum: {
+                Total: dataByMonth[month] || '0.00',
+            },
+            Order_month: month,
+        }))
+
+        return transformedData
+    }
+    return transformData(yearlyRevenues).map((item) => ({
+        month: item.Order_month,
+        revenue: item._sum.Total,
+    }))
 }
 
 export const getCountriesRevenues = async (filters: FiltersParams) => {

@@ -44,7 +44,7 @@ const MapChartComponent = () => {
                             <Text className="uppercase tracking-[1.2px] whitespace-nowrap">
                                 Total Quantity
                             </Text>
-                            <PackageIcon size={20} />
+                            <PackageIcon size={18} />
                         </div>
                         <p> {totalQuantity}</p>
                     </div>
