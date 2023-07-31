@@ -12,7 +12,7 @@ type TopChartItemProps = {
 const TopChartItem: React.FC<TopChartItemProps> = ({ name, revenue }) => {
     const totalRevenue = useAppSelector(totalRevenueSelector)
     return (
-        <div className="grid h-8 grid-cols-5 p-2 text-xs transition-colors duration-200 rounded cursor-default hover:bg-white/5">
+        <div className="grid h-8 text-[10px] grid-cols-5 p-2 text-xs transition-colors duration-200 rounded cursor-default hover:bg-white/5">
             <p className="inline-block col-span-2 pr-2 truncate border-r border-r-stone-600">
                 {name}
             </p>

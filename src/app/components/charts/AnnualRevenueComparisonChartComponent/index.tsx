@@ -17,26 +17,16 @@ const AnnualRevenueComparisonChartComponent = (props: Props) => {
     const revenueComparison = useAppSelector(revenuesComparisonSelector)
 
     return (
-        <div className="flex-col justify-between hidden col-span-1 row-span-1 card xl:flex">
-            <div className="flex items-center justify-center space-x-4">
-                <Text className="text-base text-center uppercase  tracking-[2px]">
-                    Annual Revenue Comparison
-                </Text>
-            </div>
-            <ResponsiveContainer className="!text-xs">
-                <RadarChart
-                    outerRadius={50}
-                    data={revenueComparison}
-                >
+        <div className="flex-col hidden w-full h-full col-span-1 row-span-1 card xl:flex">
+            <ResponsiveContainer className="!text-xs w-full h-full">
+                <RadarChart data={revenueComparison}>
                     <PolarGrid opacity={0.1} />
-                    <PolarAngleAxis
-                        dataKey="year"
-                        className="text-xs"
-                    />
+                    <PolarAngleAxis dataKey="year" />
                     <Radar
                         dataKey="revenue"
                         stroke="#e722ff"
                         fillOpacity={0}
+                        fontSize={12}
                     />
                 </RadarChart>
             </ResponsiveContainer>

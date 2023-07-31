@@ -14,7 +14,7 @@ const TopClientsChartComponent = () => {
     const isLoading = useAppSelector(isLoadingSelector)
     return (
         <div className="xl:row-span-1 xl:col-span-2 card col-span-full">
-            <div className="flex items-center justify-center space-x-4 mb-14">
+            <div className="flex items-center justify-center mb-8 space-x-4">
                 <Text className="text-base text-center uppercase  tracking-[2px]">
                     Top 5 Clients
                 </Text>
@@ -24,11 +24,11 @@ const TopClientsChartComponent = () => {
                 />
             </div>
             {isLoading ? (
-                <div className="relative h-full bottom-14">
+                <div className="relative h-full bottom-8">
                     <LoadingSpinner />
                 </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-2">
                     {topClients?.map((client) => (
                         <TopChartItem
                             key={client.name}

@@ -8,17 +8,17 @@ const TypeOfOrderSizeChartComponent = () => {
     const orderSizes = useAppSelector(orderSizesSelector)
 
     return (
-        <div className="flex flex-col items-center justify-between w-full h-full col-span-1 row-span-1 card">
+        <div className="flex flex-col items-center w-full h-full col-span-1 row-span-1 space-y-2 card">
             <div className="flex items-center justify-center space-x-4">
                 <Text className="text-base text-center uppercase  tracking-[2px]">
                     Type of Order Size
                 </Text>
             </div>
             <DonutChart
+                className="flex-grow"
                 data={orderSizes}
                 index="size"
                 category="count"
-                className="p-4"
             />
         </div>
     )

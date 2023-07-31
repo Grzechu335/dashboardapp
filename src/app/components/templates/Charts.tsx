@@ -12,7 +12,7 @@ const Charts = () => {
     const mapStatus = useAppSelector(mapStatusSelector)
     return (
         <section className="w-full h-full">
-            <div className="flex flex-col w-full h-full gap-4 xl:grid xl:grid-cols-8 xl:grid-rows-2">
+            <div className="flex flex-col w-full h-full gap-4 overflow-hidden xl:grid xl:grid-cols-8 xl:grid-rows-2">
                 <TopClientsChartComponent />
                 <TopCountriesChartComponent />
                 <BarChartComponent />

@@ -15,7 +15,7 @@ const TopCountriesChartComponent = () => {
 
     return (
         <div className="col-span-full xl:row-span-1 xl:col-span-2 card">
-            <div className="flex items-center justify-center space-x-4 mb-14">
+            <div className="flex items-center justify-center mb-8 space-x-4">
                 <Text className="text-base text-center uppercase  tracking-[2px]">
                     Top 5 Countries
                 </Text>
@@ -25,11 +25,11 @@ const TopCountriesChartComponent = () => {
                 />
             </div>
             {isLoading ? (
-                <div className="relative h-full bottom-14">
+                <div className="relative h-full bottom-8">
                     <LoadingSpinner />
                 </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-2">
                     {topCountries?.map((country) => (
                         <TopChartItem
                             key={country.country}

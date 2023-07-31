@@ -33,7 +33,7 @@ const LineChartComponent = () => {
                         className="relative bottom-[2px]"
                     />
                 </div>
-                <div className="items-center hidden space-x-6 text-sm text-center md:flex">
+                <div className="items-center text-[10px] hidden space-x-6 text-sm text-center md:flex">
                     <p className="block text-green-600 uppercase tracking-[1.2px]">
                         Max revenue <br />{' '}
                         {isLoading ? (

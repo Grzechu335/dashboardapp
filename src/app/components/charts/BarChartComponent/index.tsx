@@ -13,7 +13,7 @@ const BarChartComponent: React.FC = () => {
     const products = useAppSelector(productsSelector)
     return (
         <div className="flex flex-col row-span-1 md:col-span-4 card">
-            <div className="flex items-center justify-center mb-12 space-x-4">
+            <div className="flex items-center justify-center mb-6 space-x-4">
                 <Text className="text-base text-center uppercase  tracking-[2px]">
                     Number of products sold in a given period of time
                 </Text>
