@@ -40,57 +40,72 @@ const Filters = () => {
                     transition={{
                         duration: 0.5,
                     }}
-                    className="fixed left-0 top-0 w-[400px] h-screen bg-zinc-700 z-[900] rounded-r-tremor-default"
+                    className="fixed left-0 top-0 w-[50%] xl:w-[400px] h-screen bg-zinc-700 z-[900] rounded-r-tremor-default "
                 >
-                    <div className="xl:ml-[100px] p-3 space-y-6">
+                    <div className="mt-[80px] xl:mt-0 xl:ml-[100px] p-3 space-y-6">
                         {/* Month filters ==================== */}
-                        <MultiSelect
-                            value={activeMonthFilters}
-                            onValueChange={(value) =>
-                                dispatch(changeActiveMonthFilter(value))
-                            }
-                        >
-                            {months.map((item) => (
-                                <MultiSelectItem
-                                    key={item.month}
-                                    value={String(item.value)}
-                                >
-                                    {item.month}
-                                </MultiSelectItem>
-                            ))}
-                        </MultiSelect>
+                        <div>
+                            <p className="text-white uppercase tracking-[2px] mb-2 font-semibold">
+                                Months
+                            </p>
+                            <MultiSelect
+                                value={activeMonthFilters}
+                                onValueChange={(value) =>
+                                    dispatch(changeActiveMonthFilter(value))
+                                }
+                            >
+                                {months.map((item) => (
+                                    <MultiSelectItem
+                                        key={item.month}
+                                        value={String(item.value)}
+                                    >
+                                        {item.month}
+                                    </MultiSelectItem>
+                                ))}
+                            </MultiSelect>
+                        </div>
                         {/* Year filters========================= */}
-                        <MultiSelect
-                            value={activeYearFilters}
-                            onValueChange={(value) =>
-                                dispatch(changeActiveYearFilter(value))
-                            }
-                        >
-                            {allYears.map((item) => (
-                                <MultiSelectItem
-                                    key={item}
-                                    value={item}
-                                >
-                                    {item}
-                                </MultiSelectItem>
-                            ))}
-                        </MultiSelect>
-                        {/* Product filter ======================= */}
-                        <MultiSelect
-                            value={activeProductFilters}
-                            onValueChange={(value) =>
-                                dispatch(changeActiveProductFilter(value))
-                            }
-                        >
-                            {allProducts.map((item) => (
-                                <MultiSelectItem
-                                    key={item}
-                                    value={item}
-                                >
-                                    {item}
-                                </MultiSelectItem>
-                            ))}
-                        </MultiSelect>
+                        <div>
+                            <p className="text-white uppercase tracking-[2px] mb-2 font-semibold">
+                                Years
+                            </p>
+                            <MultiSelect
+                                value={activeYearFilters}
+                                onValueChange={(value) =>
+                                    dispatch(changeActiveYearFilter(value))
+                                }
+                            >
+                                {allYears.map((item) => (
+                                    <MultiSelectItem
+                                        key={item}
+                                        value={item}
+                                    >
+                                        {item}
+                                    </MultiSelectItem>
+                                ))}
+                            </MultiSelect>
+                        </div>
+                        {/* Product filters ======================= */}
+                        <div>
+                            <p className="text-white uppercase tracking-[2px] mb-2 font-semibold">
+                                Products
+                            </p>
+                            <MultiSelect
+                                value={activeProductFilters}
+                                onValueChange={(value) =>
+                                    dispatch(changeActiveProductFilter(value))
+                                }
+                            >
+                                {allProducts.map((item) => (
+                                    <MultiSelectItem
+                                        key={item}
+                                        value={item}
+                                    >
+                                        {item}
+                                    </MultiSelectItem>
+                                ))}
+                            </MultiSelect>
+                        </div>
                     </div>
                 </m.aside>
             )}

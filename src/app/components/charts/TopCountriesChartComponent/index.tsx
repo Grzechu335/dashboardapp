@@ -1,12 +1,18 @@
 import { Text } from '@tremor/react'
 import React from 'react'
 import { useAppSelector } from '../../../../../store/store'
-import { topCountriesSelector } from '../../../../../store/dataSlice'
+import {
+    isLoadingSelector,
+    topCountriesSelector,
+} from '../../../../../store/dataSlice'
 import TopChartItem from '../../atoms/TopChartItem'
 import { FaMapMarkedAlt as MapIcon } from 'react-icons/fa'
+import LoadingSpinner from '../../atoms/LoadingSpinner'
 
 const TopCountriesChartComponent = () => {
     const topCountries = useAppSelector(topCountriesSelector)
+    const isLoading = useAppSelector(isLoadingSelector)
+
     return (
         <div className="col-span-full xl:row-span-1 xl:col-span-2 card">
             <div className="flex items-center justify-center space-x-4 mb-14">
@@ -18,15 +24,21 @@ const TopCountriesChartComponent = () => {
                     className="mx-auto"
                 />
             </div>
-            <div className="space-y-4">
-                {topCountries?.map((country) => (
-                    <TopChartItem
-                        key={country.country}
-                        name={country.country}
-                        revenue={country.revenue}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="relative h-full bottom-14">
+                    <LoadingSpinner />
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {topCountries?.map((country) => (
+                        <TopChartItem
+                            key={country.country}
+                            name={country.country}
+                            revenue={country.revenue}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

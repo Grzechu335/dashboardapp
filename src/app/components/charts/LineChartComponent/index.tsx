@@ -1,12 +1,17 @@
 import { LineChart, Text } from '@tremor/react'
 import React from 'react'
 import { useAppSelector } from '../../../../../store/store'
-import { yearlyRevenuesSelector } from '../../../../../store/dataSlice'
+import {
+    isLoadingSelector,
+    yearlyRevenuesSelector,
+} from '../../../../../store/dataSlice'
 import { AiOutlineLineChart as ChartIcon } from 'react-icons/ai'
 import currencyFormatter from '../../../../../utils/currencyFormatter'
+import LoadingSpinner from '../../atoms/LoadingSpinner'
 
 const LineChartComponent = () => {
     const yearlyRevenues = useAppSelector(yearlyRevenuesSelector)
+    const isLoading = useAppSelector(isLoadingSelector)
     const maxValueOnChart = Math.max(
         ...yearlyRevenues.map((item) => item.revenue)
     )
@@ -31,21 +36,33 @@ const LineChartComponent = () => {
                 <div className="items-center hidden space-x-6 text-sm text-center md:flex">
                     <p className="block text-green-600 uppercase tracking-[1.2px]">
                         Max revenue <br />{' '}
-                        <span className="font-bold tracking-normal">
-                            {currencyFormatter(maxValueOnChart)}
-                        </span>
+                        {isLoading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            <span className="font-bold tracking-normal">
+                                {currencyFormatter(maxValueOnChart)}
+                            </span>
+                        )}
                     </p>
                     <p className="block text-yellow-600 uppercase tracking-[1.2px]">
                         Avg revenue <br />{' '}
-                        <span className="font-bold tracking-normal">
-                            {currencyFormatter(avgValueOnChart)}
-                        </span>
+                        {isLoading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            <span className="font-bold tracking-normal">
+                                {currencyFormatter(avgValueOnChart)}
+                            </span>
+                        )}
                     </p>
                     <p className="block text-red-600 uppercase tracking-[1.2px]">
                         Min revenue <br />{' '}
-                        <span className="font-bold tracking-normal">
-                            {currencyFormatter(minValueOnChart)}
-                        </span>
+                        {isLoading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            <span className="font-bold tracking-normal">
+                                {currencyFormatter(minValueOnChart)}
+                            </span>
+                        )}
                     </p>
                 </div>
             </div>
@@ -59,6 +76,7 @@ const LineChartComponent = () => {
                     categories={['revenue']}
                     showLegend={false}
                     curveType="monotone"
+                    noDataText="Loading..."
                 />
             </div>
         </div>

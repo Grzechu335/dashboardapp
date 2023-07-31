@@ -6,17 +6,20 @@ import { BsGlobe as GlobeIcon } from 'react-icons/bs'
 import { useAppSelector } from '../../../../../store/store'
 import {
     countriesRevenuesSelector,
+    isLoadingSelector,
     totalQuantitySelector,
     totalRevenueSelector,
 } from '../../../../../store/dataSlice'
 import currencyFormatter from '../../../../../utils/currencyFormatter'
 import { RiMoneyDollarCircleLine as DollarIcon } from 'react-icons/ri'
 import { FiPackage as PackageIcon } from 'react-icons/fi'
+import LoadingSpinner from '../../atoms/LoadingSpinner'
 
 const MapChartComponent = () => {
     const countriesRevenues = useAppSelector(countriesRevenuesSelector)
     const totalRevenue = useAppSelector(totalRevenueSelector)
     const totalQuantity = useAppSelector(totalQuantitySelector)
+    const isLoading = useAppSelector(isLoadingSelector)
     return (
         <div className="flex flex-col row-span-1 p-2 xl:overflow-hidden md:col-span-4 card">
             <div className="flex items-center justify-center mb-6 space-x-4">
@@ -49,24 +52,28 @@ const MapChartComponent = () => {
                         <p> {totalQuantity}</p>
                     </div>
                 </div>
-                <ComposableMap className="hidden w-full h-full xl:block">
-                    <Geographies geography="map.json">
-                        {({ geographies }) =>
-                            geographies.map((geo) => {
-                                const data = countriesRevenues?.find(
-                                    (c) => c.country === geo.properties.name
-                                )
-                                return (
-                                    <Geography
-                                        key={geo.rsmKey}
-                                        geography={geo}
-                                        fill={data ? '#f97315' : ''}
-                                    />
-                                )
-                            })
-                        }
-                    </Geographies>
-                </ComposableMap>
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <ComposableMap className="hidden w-full h-full xl:block">
+                        <Geographies geography="map.json">
+                            {({ geographies }) =>
+                                geographies.map((geo) => {
+                                    const data = countriesRevenues?.find(
+                                        (c) => c.country === geo.properties.name
+                                    )
+                                    return (
+                                        <Geography
+                                            key={geo.rsmKey}
+                                            geography={geo}
+                                            fill={data ? '#f97315' : ''}
+                                        />
+                                    )
+                                })
+                            }
+                        </Geographies>
+                    </ComposableMap>
+                )}
             </div>
         </div>
     )

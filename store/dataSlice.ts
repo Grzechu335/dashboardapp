@@ -22,7 +22,7 @@ const initialState: DataState = {
         orderStatuses: [],
         revenuesComparison: [],
     },
-    isLoading: false,
+    isLoading: true,
     error: undefined,
 }
 
@@ -89,4 +89,5 @@ export const orderStatusesSelector = (state: RootState) =>
     state.data.data.orderStatuses
 export const orderSizesSelector = (state: RootState) =>
     state.data.data.orderSizes
+export const isLoadingSelector = (state: RootState) => state.data.isLoading
 export default dataSlice.reducer
