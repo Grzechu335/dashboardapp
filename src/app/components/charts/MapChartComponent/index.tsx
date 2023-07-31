@@ -32,7 +32,7 @@ const MapChartComponent = () => {
                 />
             </div>
             <div className="flex items-center justify-start w-full h-full">
-                <div className="flex flex-col items-center w-full space-y-8 text-center xl:text-start xl:w-fit text-[12px]">
+                <div className="flex flex-col items-center w-full space-y-8 text-center xl:text-start xl:w-fit text-[10px]">
                     <div className="flex-col items-center justify-center w-full space-y-2">
                         <div className="flex items-center justify-center space-x-4">
                             <Text className="uppercase tracking-[1.2px]  whitespace-nowrap">

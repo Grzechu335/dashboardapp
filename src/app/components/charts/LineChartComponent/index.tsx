@@ -22,7 +22,7 @@ const LineChartComponent = () => {
         yearlyRevenues.reduce((acc, cur) => (acc += Number(cur.revenue)), 0) /
         yearlyRevenues.length
     return (
-        <div className="flex flex-col row-span-1 md:col-span-4 card h-[400px] md:h-auto">
+        <div className="flex flex-col row-span-1 md:col-span-4 card h-[400px] md:h-full">
             <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center space-x-4">
                     <Text className="text-base text-center uppercase  tracking-[2px]">
@@ -33,7 +33,7 @@ const LineChartComponent = () => {
                         className="relative bottom-[2px]"
                     />
                 </div>
-                <div className="items-center text-[10px] hidden space-x-6 text-sm text-center md:flex">
+                <div className="items-center !text-[10px] hidden space-x-6 text-sm text-center md:flex">
                     <p className="block text-green-600 uppercase tracking-[1.2px]">
                         Max revenue <br />{' '}
                         {isLoading ? (
@@ -68,7 +68,7 @@ const LineChartComponent = () => {
             </div>
             <div className="flex-grow px-2">
                 <LineChart
-                    className="p-2 md:w-full md:h-full"
+                    className="w-full h-full"
                     maxValue={maxValueOnChart}
                     data={yearlyRevenues}
                     index="month"
