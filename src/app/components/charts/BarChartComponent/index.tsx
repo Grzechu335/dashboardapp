@@ -1,13 +1,9 @@
 'use client'
 import React from 'react'
 import { useAppSelector } from '../../../../../store/store'
-import {
-    isLoadingSelector,
-    productsSelector,
-} from '../../../../../store/dataSlice'
+import { productsSelector } from '../../../../../store/dataSlice'
 import { BarChart, Text } from '@tremor/react'
 import { TfiCar as CarIcon } from 'react-icons/tfi'
-import LoadingSpinner from '../../atoms/LoadingSpinner'
 
 const BarChartComponent: React.FC = () => {
     const products = useAppSelector(productsSelector)
@@ -25,6 +21,7 @@ const BarChartComponent: React.FC = () => {
             <BarChart
                 className="flex-grow"
                 categories={['quantity']}
+                yAxisWidth={70}
                 index="product"
                 colors={['orange']}
                 showLegend={false}

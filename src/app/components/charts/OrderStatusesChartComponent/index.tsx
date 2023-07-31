@@ -29,7 +29,7 @@ const OrderStatusesChartComponent = (props: Props) => {
                         <React.Fragment key={status.status}>
                             <div
                                 className={classNames(
-                                    'flex flex-col items-center justify-center w-full h-full',
+                                    'flex flex-col items-center justify-center w-full h-full px-2',
                                     `${color}`
                                 )}
                             >

@@ -18,8 +18,11 @@ const AnnualRevenueComparisonChartComponent = (props: Props) => {
 
     return (
         <div className="flex-col hidden w-full h-full col-span-1 row-span-1 card xl:flex">
-            <ResponsiveContainer className="!text-xs w-full h-full">
-                <RadarChart data={revenueComparison}>
+            <ResponsiveContainer className="w-full h-full ">
+                <RadarChart
+                    data={revenueComparison}
+                    className="!text-[10px]"
+                >
                     <PolarGrid opacity={0.1} />
                     <PolarAngleAxis dataKey="year" />
                     <Radar

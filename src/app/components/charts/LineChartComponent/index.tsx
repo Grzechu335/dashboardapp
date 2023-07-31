@@ -7,7 +7,6 @@ import {
 } from '../../../../../store/dataSlice'
 import { AiOutlineLineChart as ChartIcon } from 'react-icons/ai'
 import currencyFormatter from '../../../../../utils/currencyFormatter'
-import LoadingSpinner from '../../atoms/LoadingSpinner'
 
 const LineChartComponent = () => {
     const yearlyRevenues = useAppSelector(yearlyRevenuesSelector)
@@ -69,9 +68,10 @@ const LineChartComponent = () => {
             <div className="flex-grow px-2">
                 <LineChart
                     className="w-full h-full"
-                    maxValue={maxValueOnChart}
+                    maxValue={Number((1.1 * maxValueOnChart).toFixed(2))}
                     data={yearlyRevenues}
                     index="month"
+                    yAxisWidth={70}
                     valueFormatter={(value) => `${value} $`}
                     categories={['revenue']}
                     showLegend={false}
